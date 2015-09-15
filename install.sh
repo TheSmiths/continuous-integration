@@ -37,5 +37,8 @@ if [ $PLATFORM = "android" ]; then
     echo yes | android -s update sdk --no-ui --all --filter extra-android-support
     echo yes | android -s update sdk --no-ui --all --filter tools
     echo yes | android -s update sdk --no-ui --all --filter platform-tools
+    echo yes | android -s update sdk --no-ui --all --filter build-tools-19.1.0
+    echo yes | android -s update sdk --no-ui --all --filter build-tools-20.0.0
+    echo yes | android -s update sdk --no-ui --all --filter build-tools-21.0.0
     echo yes | android -s update sdk --no-ui --all --filter build-tools-22.0.0
 fi
