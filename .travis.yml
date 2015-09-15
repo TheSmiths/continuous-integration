@@ -26,6 +26,7 @@ before_install:
     - curl -o ignore.sh ${CI_REPO}/ignore.sh
     - curl -o release.sh ${CI_REPO}/release.sh
     - curl -o bump_version.sh ${CI_REPO}/bump_version.sh
+    - chmod +x ignore.sh
 
 install:
     - npm install -g titanium alloy
