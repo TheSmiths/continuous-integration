@@ -1,0 +1,39 @@
+language: objective-c
+branches:
+    only:
+    - develop
+
+env:
+    matrix:
+        - PLATFORM="ios"
+        - PLATFORM="android" ANDROID_VERSION="19"
+    global:
+        - ANDROID_SDK_FILE="android-sdk_r24.1.2-macosx.zip"
+        - ANDROID_HOME=${PWD}
+        - ANDROID_SDK=${ANDROID_HOME}/android-sdk-macosx
+        - PATH=${PATH}:${ANDROID_SDK}/tools:${ANDROID_SDK}/platform-tools
+        - GH_USER="TravisTheSmiths"
+        - CI_REPO="https://raw.githubusercontent.com/TheSmiths/continuous-integration/master"
+#        - secure: <travis encrypt GH_TOKEN= xxxxxxx>
+
+matrix:
+    fast_finish: true
+    allow_failures:
+        - env: PLATFORM="android" ANDROID_VERSION="19"
+
+before_install:
+    - curl -o install.sh ${CI_REPO}/install.sh
+    - curl -o ignore.sh ${CI_REPO}/ignore.sh
+    - curl -o release.sh ${CI_REPO}/release.sh
+    - curl -o bump_version.sh ${CI_REPO}/bump_version.sh
+
+install:
+    - npm install -g titanium alloy
+    - source install.sh
+
+script:
+    - source bump_version.sh app
+    - titanium build -p ${PLATFORM} --build-only --log-level warn
+
+after_success:
+    - source release.sh
