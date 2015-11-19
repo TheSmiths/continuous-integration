@@ -13,7 +13,7 @@
     "postbuild": "npm run dist:prepare && npm run dist:move && npm run dist:zip && rm -r modules"
   },
   "devDependencies": {
-    "uglify": "^0.1.15",
+    "uglify": "^0.1.5",
     "browserify": "^11.0.0"
   }
 }
